@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.notice.NoticeMapper">
+	<select id="read" parameterType="int"
+		resultType="com.study.notice.NoticeDTO">
+		select noticeno, title, content, wname, passwd, cnt, rdate
+		from notice
+		where noticeno = #{noticeno}
+	</select>
+	<!-- 조회수 증가 -->
+	<update id="upCnt" parameterType="int">
+		update notice
+		set cnt = cnt + 1
+		where noticeno = #{noticeno}
+	</update>
+	<select id="total" parameterType="Map" resultType="int">
+		select count(*) from notice
+		<where>
+			<choose>
+				<when test="col=='title'">
+					title like '%'||#{word}||'%'
+				</when>
+				<when test="col=='content'">
+					content like '%'||#{word}||'%'
+				</when>
+				<when test="col=='wname'">
+					wname = #{word}
+				</when>
+			</choose>
+		</where>
+	</select>
+	<select id="list" parameterType="Map"
+		resultType="com.study.notice.NoticeDTO">
+		select noticeno, title, content, wname, passwd, cnt, rdate, r
+		from (
+			select noticeno, title, content, wname, passwd, cnt, rdate, rownum r
+			from(
+				select noticeno, title, content, wname, passwd, cnt, rdate
+				from notice
+				<where>
+				<choose>
+					<when test="col=='title'">
+						title like '%'||#{word}||'%'
+					</when>
+					<when test="col=='content'">
+						content like '%'||#{word}||'%'
+					</when>
+					<when test="col=='wname'">
+						wname = #{word}
+					</when>
+				</choose>
+			  </where>
+		       order by noticeno desc
+			)
+     	<![CDATA[       
+         )where r >= #{sno} and r <= #{eno}
+     	]]>
+	</select>
+</mapper>
