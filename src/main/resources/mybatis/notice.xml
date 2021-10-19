@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.notice.NoticeMapper">
+	<insert id="create" parameterType="com.study.notice.NoticeDTO">
+		insert into notice(noticeno,
+		title, content, wname, passwd, cnt, rdate)
+		values((select
+		nvl(max(noticeno),0)+1 from notice), #{title}, #{content}, #{wname},
+		#{passwd}, 0,sysdate)
+	</insert>
+	  <!-- 패스워드 검사 -->
+  	<select id="passwd" resultType="int" parameterType="HashMap">
+    	SELECT COUNT(*) AS cnt
+    	FROM notice
+    	WHERE noticeno=#{noticeno} AND passwd=#{passwd}
+  	</select>   
+	<update id="update" parameterType="com.study.notice.NoticeDTO">
+		update notice
+		set title=#{title}, content=#{content}, wname=#{wname}
+		where noticeno =#{noticeno}
+	</update>
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM notice
+		WHERE noticeno=#{noticeno}
+	</delete>  
+	
+	<select id="read" parameterType="int"
+		resultType="com.study.notice.NoticeDTO">
+		select noticeno, title, content, wname, passwd, cnt, rdate
+		from notice
+		where noticeno = #{noticeno}
+	</select>
+	<!-- 조회수 증가 -->
+	<update id="upCnt" parameterType="int">
+		update notice
+		set cnt = cnt + 1
+		where noticeno = #{noticeno}
+	</update>
+	<select id="total" parameterType="Map" resultType="int">
+		select count(*) from notice
+		<where>
+			<choose>
+				<when test="col=='title'">
+					title like '%'||#{word}||'%'
+				</when>
+				<when test="col=='content'">
+					content like '%'||#{word}||'%'
+				</when>
+				<when test="col=='wname'">
+					wname = #{word}
+				</when>
+			</choose>
+		</where>
+	</select>
+	<select id="list" parameterType="Map"
+		resultType="com.study.notice.NoticeDTO">
+		select noticeno, title, content, wname, passwd, cnt, rdate, r
+		from (
+			select noticeno, title, content, wname, passwd, cnt, rdate, rownum r
+			from(
+				select noticeno, title, content, wname, passwd, cnt, rdate
+				from notice
+				<where>
+				<choose>
+					<when test="col=='title'">
+						title like '%'||#{word}||'%'
+					</when>
+					<when test="col=='content'">
+						content like '%'||#{word}||'%'
+					</when>
+					<when test="col=='wname'">
+						wname = #{word}
+					</when>
+				</choose>
+			  </where>
+		       order by noticeno desc
+			)
+     	<![CDATA[       
+         )where r >= #{sno} and r <= #{eno}
+     	]]>
+	</select>
+</mapper>
