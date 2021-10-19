@@ -9,7 +9,11 @@
             <put-attribute name="body" value="/WEB-INF/views/notice/list.jsp" /> 
     </definition> 
     <definition name="/notice/read" extends="main"> 
-            <put-attribute name="title" value="상품상세페이지" ></put-attribute> 
+            <put-attribute name="title" value="공지사항 상세페이지" ></put-attribute> 
             <put-attribute name="body" value="/WEB-INF/views/notice/read.jsp" /> 
     </definition>
+    <definition name="/notice/create" extends="main"> 
+            <put-attribute name="title" value="공지사항 등록" ></put-attribute> 
+            <put-attribute name="body" value="/WEB-INF/views/notice/createForm.jsp" /> 
+    </definition> 
 </tiles-definitions>

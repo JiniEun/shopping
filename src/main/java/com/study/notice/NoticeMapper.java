@@ -7,8 +7,10 @@ public interface NoticeMapper {
 	List<NoticeDTO> list(Map map);
 
 	int total(Map map);
-	
-	NoticeDTO read (int noticeno);
-	
+
+	NoticeDTO read(int noticeno);
+
 	void upCnt(int noticeno);
+
+	int create(NoticeDTO dto);
 }

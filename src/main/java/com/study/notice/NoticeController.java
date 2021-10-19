@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.study.utility.Utility;
@@ -20,12 +21,6 @@ public class NoticeController {
 	@Autowired
 	@Qualifier("com.study.notice.NoticeServiceImpl")
 	private NoticeService service;
-
-//	@GetMapping("/admin/create")
-//	public String create() {
-//
-//		return "/contents/create";
-//	}
 
 	@RequestMapping("/notice/list")
 	public String list(HttpServletRequest request) {
@@ -85,5 +80,21 @@ public class NoticeController {
 		model.addAttribute("dto", dto);
 
 		return "/notice/read";
+	}
+
+	@GetMapping("/admin/notice/create")
+	public String create() {
+
+		return "/notice/create";
+	}
+
+	@PostMapping("/notice/create")
+	public String create(NoticeDTO dto) {
+
+		if (service.create(dto) > 0) {
+			return "redirect:/notice/list";
+		} else {
+			return "error";
+		}
 	}
 }

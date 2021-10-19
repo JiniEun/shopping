@@ -35,4 +35,9 @@ public class NoticeServiceImpl implements NoticeService {
 		mapper.upCnt(noticeno);
 	}
 
+	@Override
+	public int create(NoticeDTO dto) {
+		return mapper.create(dto);
+	}
+
 }

@@ -5,6 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.notice.NoticeMapper">
+	<insert id="create" parameterType="com.study.notice.NoticeDTO">
+		insert into notice(noticeno, title, content, wname, passwd, cnt, rdate)
+		values((select nvl(max(noticeno),0)+1 from notice), #{title}, #{content}, #{wname}, #{passwd}, 0,sysdate)
+	</insert>
 	<select id="read" parameterType="int"
 		resultType="com.study.notice.NoticeDTO">
 		select noticeno, title, content, wname, passwd, cnt, rdate

@@ -11,4 +11,6 @@ public interface NoticeService {
 	NoticeDTO read(int noticeno);
 
 	void upCnt(int noticeno);
+
+	int create(NoticeDTO dto);
 }
