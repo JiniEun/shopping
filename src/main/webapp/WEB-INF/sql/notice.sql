@@ -1,5 +1,5 @@
 -- DDL
--- DROP TABLE notice;
+-- DROP TABLE notice
 CREATE TABLE notice(
   noticeno      NUMBER(11)				NOT NULL PRIMARY KEY,
   title         VARCHAR2(300)			NOT NULL,

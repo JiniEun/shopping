@@ -13,4 +13,10 @@ public interface NoticeService {
 	void upCnt(int noticeno);
 
 	int create(NoticeDTO dto);
+
+	int update(NoticeDTO dto);
+
+	int delete(int noticeno);
+	
+	int passwd(Map map);
 }

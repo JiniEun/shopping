@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 
 <script type="text/javascript">
-/*
+
 	function updateM() {
 		var url = "update";
 		url += "?noticeno=${dto.noticeno}";
@@ -18,7 +18,7 @@
 		var url = "delete";
 		url += "?noticeno=${dto.noticeno}";
 		location.href = url;
-	}*/
+	}
 
 	function listM() {
 		var url = "list";

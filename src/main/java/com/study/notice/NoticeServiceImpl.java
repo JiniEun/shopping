@@ -40,4 +40,22 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.create(dto);
 	}
 
+	@Override
+	public int update(NoticeDTO dto) {
+		// TODO Auto-generated method stub
+		return mapper.update(dto);
+	}
+
+	@Override
+	public int delete(int noticeno) {
+		// TODO Auto-generated method stub
+		return mapper.delete(noticeno);
+	}
+
+	@Override
+	public int passwd(Map map) {
+		// TODO Auto-generated method stub
+		return mapper.passwd(map);
+	}
+
 }

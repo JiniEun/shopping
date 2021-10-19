@@ -97,4 +97,66 @@ public class NoticeController {
 			return "error";
 		}
 	}
+
+	@GetMapping("/notice/update")
+	public String update(int noticeno, Model model) {
+
+		model.addAttribute("dto", service.read(noticeno));
+
+		return "/notice/update";
+	}
+	
+	@PostMapping("/notice/update")
+	public String update(NoticeDTO dto) {
+
+		Map map = new HashMap();
+		map.put("noticeno", dto.getNoticeno());
+		map.put("passwd", dto.getPasswd());
+		int pcnt = service.passwd(map);
+
+		int cnt = 0;
+		if (pcnt == 1) {
+
+			cnt = service.update(dto);
+		}
+
+		if (pcnt != 1) {
+			return "./passwdError";
+		} else if (cnt == 1) {
+			return "redirect:/notice/list";
+		} else {
+			return "error";
+		}
+
+	}
+
+	@GetMapping("/notice/delete")
+	public String delete() {
+
+		return "/notice/delete";
+	}
+
+	@PostMapping("/notice/delete")
+	public String delete(HttpServletRequest request, int noticeno, String passwd) {
+
+		Map map = new HashMap();
+		map.put("noticeno", noticeno);
+		map.put("passwd", passwd);
+		int pcnt = service.passwd(map);
+
+		int cnt = 0;
+		if (pcnt == 1) {
+
+			cnt = service.delete(noticeno);
+		}
+
+		if (pcnt != 1) {
+			return "./passwdError";
+		} else if (cnt == 1) {
+			return "redirect:/notice/list";
+		} else {
+			return "error";
+		}
+
+	}
 }

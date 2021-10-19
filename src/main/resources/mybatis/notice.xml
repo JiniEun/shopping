@@ -6,9 +6,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.study.notice.NoticeMapper">
 	<insert id="create" parameterType="com.study.notice.NoticeDTO">
-		insert into notice(noticeno, title, content, wname, passwd, cnt, rdate)
-		values((select nvl(max(noticeno),0)+1 from notice), #{title}, #{content}, #{wname}, #{passwd}, 0,sysdate)
+		insert into notice(noticeno,
+		title, content, wname, passwd, cnt, rdate)
+		values((select
+		nvl(max(noticeno),0)+1 from notice), #{title}, #{content}, #{wname},
+		#{passwd}, 0,sysdate)
 	</insert>
+	  <!-- 패스워드 검사 -->
+  	<select id="passwd" resultType="int" parameterType="HashMap">
+    	SELECT COUNT(*) AS cnt
+    	FROM notice
+    	WHERE noticeno=#{noticeno} AND passwd=#{passwd}
+  	</select>   
+	<update id="update" parameterType="com.study.notice.NoticeDTO">
+		update notice
+		set title=#{title}, content=#{content}, wname=#{wname}
+		where noticeno =#{noticeno}
+	</update>
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM notice
+		WHERE noticeno=#{noticeno}
+	</delete>  
+	
 	<select id="read" parameterType="int"
 		resultType="com.study.notice.NoticeDTO">
 		select noticeno, title, content, wname, passwd, cnt, rdate
