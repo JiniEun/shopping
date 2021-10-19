@@ -2,32 +2,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="util" uri="/ELFunctions" %>
-
- 
 <!DOCTYPE html> 
-<html> 
+<html>
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-   <script type="text/javascript">
-     function read(contentsno){
-       var url = "read";
-       url += "?contentsno="+contentsno;
-       url += "&col=${col}";
-       url += "&word=${word}";
-       url += "&nowPage=${nowPage}";
-       location.href=url;
- 
-     }
-     
-     function fileDown(filename){
-         var url = "fileDown";
-         url += "?filename="+filename;
-         location.href=url;
-        }
-  
-  </script>
- 
+<title>Contents</title>
+<meta charset="utf-8">
+<script type="text/javascript">
+	function detail(contentsno) {
+		var url = "detail";
+		url += "?contentsno=" + contentsno;
+		url += "&col=${col}";
+		url += "&word=${word}";
+		url += "&nowPage=${nowPage}";
+		location.href = url;
+
+	}
+
+	function fileDown(filename) {
+		var url = "fileDown";
+		url += "?filename=" + filename;
+		location.href = url;
+	}
+</script>
+
 </head>
 <body>
 <div class="container">
@@ -86,7 +83,7 @@
     <img src="/pstorage/${dto.filename}"  class="img-rounded" width="100px" height="100px">
     </td>
     <td>
-    <a href="javascript:read('${dto.contentsno}')">${dto.pname}</a>
+    <a href="javascript:detail('${dto.contentsno}')">${dto.pname}</a>
     <c:if test="${util:newImg(fn:substring(dto.rdate,0,10)) }">
          <img src="/images/new.gif"> 
     </c:if> 
