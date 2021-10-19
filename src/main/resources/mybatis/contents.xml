@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.contents.ContentsMapper">
+    <select id="detail" parameterType="int" resultType="com.study.contents.ContentsDTO">
+        select contentsno, cateno, pname, price, filename, stock, detail
+        from contents
+        where contentsno = #{conentsno}
+    </select>
+	<update id="updateFile" parameterType="Map">
+		update contents
+		set filename = #{fname}
+		where contentsno = #{contentsno}
+	</update>
+	<select id="total" parameterType="Map" resultType="int">
+		select count(*) from contents
+		<where>
+			<choose>
+				<when test="col=='pname'">
+					pname like '%'||#{word}||'%'
+				</when>
+				<when test="col=='price'">
+					price like '%'||#{word}||'%'
+				</when>
+				<when test="col=='cateno'">
+					cateno = #{word}
+				</when>
+			</choose>
+		</where>
+	</select>
+
+	<select id="list" parameterType="Map"
+		resultType="com.study.contents.ContentsDTO">
+		select contentsno, cateno, pname, price, filename, stock, rdate, r
+		from (
+			select contentsno, cateno, pname, price, filename, stock,rdate, rownum r
+			from(
+				select contentsno, cateno,pname, price, filename, stock,rdate
+				from contents
+				<where>
+				<choose>
+					<when test="col=='pname'">
+						pname like '%'||#{word}||'%'
+					</when>
+					<when test="col=='price'">
+						price like '%'||#{word}||'%'
+					</when>
+					<when test="col=='cateno'">
+						cateno = #{word}
+					</when>
+				</choose>
+			  </where>
+		       order by contentsno desc
+			)
+     	<![CDATA[       
+         )where r >= #{sno} and r <= #{eno}
+     	]]>
+	</select>
+
+	<update id="update"
+		parameterType="com.study.contents.ContentsDTO">
+		update contents
+		set pname =#{pname},
+		price = #{price},
+		detail = #{detail}
+		where contentsno =#{contentsno}
+	</update>
+
+
+	<insert id="create"
+		parameterType="com.study.contents.ContentsDTO">
+		insert into contents(contentsno, cateno, pname, price, filename, detail,
+		rdate, stock)
+		values((select nvl(max(contentsno),0)+1 from contents),
+		#{cateno},#{pname}, #{price}, #{filename}, #{detail},
+		sysdate, #{stock})
+	</insert>
+	
+	<select id="getCategory" resultType="Map">
+		select cateno, catename from category
+		where categrpno is null
+	</select>
+	<select id="mainlist" parameterType="map" resultType="com.study.contents.ContentsDTO">
+        select contentsno, cateno, pname, price, filename, stock,  r
+        from (
+            select contentsno, cateno, pname, price, filename, stock, rownum r
+            from(
+                select contentsno, cateno,pname, price, filename, stock
+                from contents
+                 
+                <where>
+                    <choose>
+                        <when test="col=='pname'">
+                            pname like '%'||#{word}||'%'
+                        </when>
+                        <when test="col=='price'">
+                            price like '%'||#{word}||'%'
+                        </when>
+                    </choose>
+                     and cateno = #{cateno}
+                </where>
+                order by contentsno desc
+            )
+    <![CDATA[   
+        )where r >= #{sno} and r <= #{eno}
+    ]]> 
+    </select>
+
+</mapper>

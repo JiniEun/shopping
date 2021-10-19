@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+    <definition name="/contents/create" extends="main"> 
+            <put-attribute name="title" value="상품등록" ></put-attribute> 
+            <put-attribute name="body" value="/WEB-INF/views/contents/createForm.jsp" /> 
+    </definition> 
+    <definition name="/contents/list" extends="main"> 
+            <put-attribute name="title" value="상품목록" ></put-attribute> 
+            <put-attribute name="body" value="/WEB-INF/views/contents/list.jsp" /> 
+    </definition> 
+    <definition name="/contents/update" extends="main"> 
+            <put-attribute name="title" value="상품수정" ></put-attribute> 
+            <put-attribute name="body" value="/WEB-INF/views/contents/updateForm.jsp" /> 
+    </definition> 
+    <definition name="/contents/updateFile" extends="main"> 
+            <put-attribute name="title" value="사진수정" ></put-attribute> 
+            <put-attribute name="body" value="/WEB-INF/views/contents/updateFileForm.jsp" /> 
+    </definition> 
+    
+    <definition name="/contents/mainlist" extends="main"> 
+            <put-attribute name="title" value="상품메인목록" ></put-attribute> 
+            <put-attribute name="body" value="/WEB-INF/views/contents/mainlist.jsp" /> 
+    </definition>
+    <definition name="/contents/detail" extends="main"> 
+            <put-attribute name="title" value="상품상세페이지" ></put-attribute> 
+            <put-attribute name="body" value="/WEB-INF/views/contents/detail.jsp" /> 
+    </definition>
+</tiles-definitions>

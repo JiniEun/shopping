@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.member.MemberMapper">
+
+	<resultMap type="com.study.member.MemberDTO" id="memberOrder">
+		<result property="id" column="id" />
+		<result property="mname" column="mname" />
+		<result property="fname" column="fname" />
+		<result property="zipcode" column="zipcode" />
+		<result property="address1" column="address1" />
+		<result property="address2" column="address2" />
+		<collection property="list" column="id" javaType="List"
+			ofType="com.study.orders.OdersDTO" resultMap="orderList" />
+	</resultMap>
+	<resultMap type="com.study.orders.OrdersDTO" id="orderList">
+		<result property="orderno" column="orderno" />
+		<result property="odate" column="odate" />
+		<result property="pname" column="pname" />
+		<result property="quantity" column="quantity" />
+		<result property="total" column="total" />
+	</resultMap>
+	<select id="mypage" parameterType="String"
+		resultMap="memberOrder">
+		select m.id, m.mname, m.fname, m.zipcode, m.address1, m.address2,
+		o.orderno,o.odate,o.pname,o.quantity,o.total
+		from member m left outer join orders o
+		on m.id = o.id
+		where m.id=#{id}
+	</select>
+
+	<select id="total" parameterType="Map" resultType="int">
+		select count(*) from member
+		<where>
+			<choose>
+				<when test="col=='mname'">
+					mname like '%'||#{word}||'%'
+				</when>
+				<when test="col=='id'">
+					id like '%'||#{word}||'%'
+				</when>
+				<when test="col=='email'">
+					email like '%'||#{word}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+	<select id="list" parameterType="Map"
+		resultType="com.study.member.MemberDTO">
+		SELECT id, mname, tel, email, zipcode, address1, address2,
+		fname, r
+		from(
+			SELECT id, mname, tel, email, zipcode, address1, address2,
+			fname, rownum r
+			from(
+				SELECT id, mname, tel, email, zipcode, address1,
+				address2, fname
+				FROM member
+				<where>
+					<choose>
+						<when test="col=='mname'">
+							mname like '%'||#{word}||'%'
+						</when>
+						<when test="col=='id'">
+							id like '%'||#{word}||'%'
+						</when>
+						<when test="col=='email'">
+							email like '%'||#{word}||'%'
+						</when>
+					</choose>
+				</where>
+				ORDER BY mdate DESC
+				)
+		<![CDATA[       
+		     )where r >= #{sno} and r <= #{eno}
+		]]>
+	</select>
+
+	<update id="updateFile" parameterType="Map">
+		update member
+		set fname = #{fname}
+		where id = #{id}
+	</update>
+	<update id="update" parameterType="com.study.member.MemberDTO">
+		update member
+		set tel = #{tel},
+		email = #{email},
+		zipcode = #{zipcode},
+		address1 = #{address1},
+		address2 = #{address2},
+		job = #{job}
+		where id = #{id}
+	</update>
+
+	<select id="read" parameterType="String"
+		resultType="com.study.member.MemberDTO">
+		select *
+		from member
+		where id = #{id}
+	</select>
+
+	<select id="getGrade" parameterType="String" resultType="String">
+		select
+		grade from member
+		where id = #{id}
+	</select>
+	<select id="loginCheck" parameterType="Map" resultType="int">
+		select
+		count(*) from member
+		where id = #{id}
+		and passwd = #{passwd}
+	</select>
+
+	<select id="duplicatedId" parameterType="String"
+		resultType="int">
+		SELECT COUNT(id)
+		FROM member
+		WHERE id=#{id}
+	</select>
+	<select id="duplicatedEmail" parameterType="String"
+		resultType="int">
+		SELECT COUNT(email)
+		FROM member
+		WHERE email=#{email}
+	</select>
+
+	<insert id="create" parameterType="com.study.member.MemberDTO">
+		INSERT INTO member(id, passwd, mname, tel, email, zipcode,
+		address1, address2, job, mdate, fname, grade)
+		VALUES(#{id}, #{passwd},#{mname}, #{tel}, #{email}, #{zipcode},
+		#{address1}, #{address2}, #{job}, sysdate, #{fname}, 'H')
+	</insert>
+
+</mapper>

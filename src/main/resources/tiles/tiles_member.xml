@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+  <!-- main -->
+  <definition name="main"
+    template="/WEB-INF/views/template/template.jsp">
+    <put-attribute name="header"
+      value="/WEB-INF/views/template/top.jsp" />
+  </definition>
+  <definition name="/home" extends="main">
+    <put-attribute name="title" value="기본페이지"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/index.jsp" />
+  </definition>
+  <definition name="/member/agree" extends="main">
+    <put-attribute name="title" value="회원약관"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/agreement.jsp" />
+  </definition>
+  <definition name="/member/create" extends="main">
+    <put-attribute name="title" value="회원가입"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/createForm.jsp" />
+  </definition>
+  <definition name="/member/login" extends="main">
+    <put-attribute name="title" value="로그인"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/loginForm.jsp" />
+  </definition>
+  <definition name="/member/update" extends="main">
+    <put-attribute name="title" value="회원수정"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/updateForm.jsp" />
+  </definition>
+  <definition name="/member/read" extends="main">
+    <put-attribute name="title" value="회원정보"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/read.jsp" />
+  </definition>
+  <definition name="/member/updateFile" extends="main">
+    <put-attribute name="title" value="사진수정"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/updateFileForm.jsp" />
+  </definition>
+  <definition name="/member/list" extends="main">
+    <put-attribute name="title" value="회원목록"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/list.jsp" />
+  </definition>
+  <definition name="/member/mypage" extends="main">
+    <put-attribute name="title" value="나의페이지"></put-attribute>
+    <put-attribute name="body"
+      value="/WEB-INF/views/member/mypage.jsp" />
+  </definition>
+ 
+</tiles-definitions>
