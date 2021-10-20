@@ -68,8 +68,8 @@
   </div>
    <div class="form-group">
    <div class="col-sm-offset-2 col-sm-5">
-    <button class="btn">등록</button>
-    <button type="reset" class="btn">취소</button>
+    <button class="btn btn-default">등록</button>
+    <button type="button" class="btn btn-default" onclick="history.back()">취소</button>
    </div>
  </div>
 </form>
