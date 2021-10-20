@@ -97,3 +97,12 @@ from (
     )
  
 )where r >= 1 and r <= 5;
+
+
+select constraint_name, table_name, r_constraint_name
+from user_constraints
+where constraint_name = 'SYS_C0028322';
+
+
+
+

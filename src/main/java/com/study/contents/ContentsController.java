@@ -30,14 +30,36 @@ public class ContentsController {
 	@Qualifier("com.study.contents.ContentsServiceImpl")
 	private ContentsService service;
 
-	@GetMapping("/contents/detail/{contentsno}")
-	public String detail(@PathVariable("contentsno") int contentsno, Model model) {
-	    
-	   model.addAttribute("dto",service.detail(contentsno));
-	  
-	    return "/contents/detail";
+	@GetMapping("/contents/detail") // /{contentsno} @PathVariable("contentsno")
+	public String detail(int contentsno, Model model) {
+
+		ContentsDTO dto = service.detail(contentsno);
+
+		String content = dto.getDetail().replaceAll("\r\n", "<br>");
+
+		dto.setDetail(content);
+		System.out.println(dto.toString());
+
+		model.addAttribute("dto", dto);
+
+		return "/contents/detail";
 	}
-	
+
+	@GetMapping("/contents/detail/{contentsno}") // /{contentsno}
+	public String detail_mainlist(@PathVariable("contentsno") int contentsno, Model model) {
+
+		ContentsDTO dto = service.detail(contentsno);
+
+		String content = dto.getDetail().replaceAll("\r\n", "<br>");
+
+		dto.setDetail(content);
+		System.out.println(dto.toString());
+
+		model.addAttribute("dto", dto);
+
+		return "/contents/detail";
+	}
+
 	@PostMapping("/contents/updateFile")
 	public String updateFile(MultipartFile filenameMF, String oldfile, int contentsno, HttpServletRequest request)
 			throws IOException {
@@ -171,55 +193,75 @@ public class ContentsController {
 
 		return list;
 	}
-	
+
 	@GetMapping("/contents/mainlist/{cateno}")
-	  public String mainlist(@PathVariable("cateno") int cateno, HttpServletRequest request, Model model) {
-	 // 검색관련------------------------
-	    String col = Utility.checkNull(request.getParameter("col"));
-	    String word = Utility.checkNull(request.getParameter("word"));
-	 
-	    if (col.equals("total")) {
-	      word = "";
-	    }
-	 
-	    // 페이지관련-----------------------
-	    int nowPage = 1;// 현재 보고있는 페이지
-	    if (request.getParameter("nowPage") != null) {
-	      nowPage = Integer.parseInt(request.getParameter("nowPage"));
-	    }
-	    int recordPerPage = 8;// 한페이지당 보여줄 레코드갯수
-	 
-	    // DB에서 가져올 순번-----------------
-	    int sno = ((nowPage - 1) * recordPerPage) + 1;
-	    int eno = nowPage * recordPerPage;
-	 
-	    Map map = new HashMap();
-	    map.put("col", "cateno");
-	    map.put("word", cateno);
-	 
-	    int total = service.total(map);
-	    
-	    map = new HashMap();
-	    map.put("col", col);
-	    map.put("word", word);
-	    map.put("sno", sno);
-	    map.put("eno", eno);
-	    map.put("cateno", cateno);
-	 
-	    List<ContentsDTO> list = service.mainlist(map);
-	 
-	    String paging = Utility.paging2(total, nowPage, recordPerPage, col, word,cateno);
-	 
-	    // request에 Model사용 결과 담는다
-	    request.setAttribute("list", list);
-	    request.setAttribute("nowPage", nowPage);
-	    request.setAttribute("col", col);
-	    request.setAttribute("word", word);
-	    request.setAttribute("paging", paging);
-	    request.setAttribute("cateno", cateno);
-	    
-	    return "/contents/mainlist";
-	 
-	  }
+	public String mainlist(@PathVariable("cateno") int cateno, HttpServletRequest request, Model model) {
+		// 검색관련------------------------
+		String col = Utility.checkNull(request.getParameter("col"));
+		String word = Utility.checkNull(request.getParameter("word"));
+
+		if (col.equals("total")) {
+			word = "";
+		}
+
+		// 페이지관련-----------------------
+		int nowPage = 1;// 현재 보고있는 페이지
+		if (request.getParameter("nowPage") != null) {
+			nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		}
+		int recordPerPage = 8;// 한페이지당 보여줄 레코드갯수
+
+		// DB에서 가져올 순번-----------------
+		int sno = ((nowPage - 1) * recordPerPage) + 1;
+		int eno = nowPage * recordPerPage;
+
+		Map map = new HashMap();
+		map.put("col", "cateno");
+		map.put("word", cateno);
+
+		int total = service.total(map);
+
+		map = new HashMap();
+		map.put("col", col);
+		map.put("word", word);
+		map.put("sno", sno);
+		map.put("eno", eno);
+		map.put("cateno", cateno);
+
+		List<ContentsDTO> list = service.mainlist(map);
+
+		String paging = Utility.paging2(total, nowPage, recordPerPage, col, word, cateno);
+
+		// request에 Model사용 결과 담는다
+		request.setAttribute("list", list);
+		request.setAttribute("nowPage", nowPage);
+		request.setAttribute("col", col);
+		request.setAttribute("word", word);
+		request.setAttribute("paging", paging);
+		request.setAttribute("cateno", cateno);
+
+		return "/contents/mainlist";
+
+	}
+
+	@GetMapping("/contents/delete/{contentsno}")
+	public String delete(@PathVariable("contentsno") int contentsno, HttpServletRequest request) {
+		request.setAttribute("contentsno", contentsno);
+
+		return "/contents/delete";
+	}
+
+	@PostMapping("/contents/delete")
+	public String delete(int contentsno) {
+
+		int cnt = service.delete(contentsno);
+
+		if (cnt == 1) {
+			return "redirect:/contents/list";
+		} else {
+			return "error";
+		}
+
+	}
 
 }

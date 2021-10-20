@@ -5,10 +5,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.study.contents.ContentsMapper">
     <select id="detail" parameterType="int" resultType="com.study.contents.ContentsDTO">
-        select contentsno, cateno, pname, price, filename, stock, detail
+        select contentsno, cateno, pname, price, filename, stock, detail, rdate
         from contents
         where contentsno = #{conentsno}
     </select>
+    
+    <delete id="delete" parameterType="int">
+		DELETE FROM contents
+		WHERE contentsno=#{contentsno}
+	</delete>  
+	
 	<update id="updateFile" parameterType="Map">
 		update contents
 		set filename = #{fname}
