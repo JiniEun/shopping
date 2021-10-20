@@ -16,9 +16,11 @@ public interface ContentsService {
 	int updateFile(Map map);
 
 	ContentsDTO detail(int contentsno);
-	
+
 	List<Map> getCategory();
-	
+
 	List<ContentsDTO> mainlist(Map map);
+
+	int delete(int contentsno);
 
 }

@@ -9,6 +9,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from contents
         where contentsno = #{conentsno}
     </select>
+    
+    <delete id="delete" parameterType="int">
+		DELETE FROM contents
+		WHERE contentsno=#{contentsno}
+	</delete>  
+	
 	<update id="updateFile" parameterType="Map">
 		update contents
 		set filename = #{fname}

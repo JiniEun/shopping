@@ -10,18 +10,17 @@
 <script type="text/javascript">
 
 	function updateM() {
-		var url = "update/{dto.contentsno}";
+		var url = "./update/${dto.contentsno}";
 		location.href = url;
 	}
 	
 	function deleteM() {
-		var url = "delete";
-		url += "?contentsno=${dto.contentsno}";
+		var url = "./delete/${dto.contentsno}";
 		location.href = url;
 	}
 
 	function listM() {
-		var url = "list";
+		var url = "./list";
 		url += "?nowPage=${param.nowPage}";
 		url += "&col=${param.col}";
 		url += "&word=${param.word}";

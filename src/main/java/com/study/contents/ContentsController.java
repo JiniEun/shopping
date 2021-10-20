@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.study.notice.NoticeDTO;
 import com.study.utility.Utility;
 
 @Controller
@@ -45,9 +44,9 @@ public class ContentsController {
 
 		return "/contents/detail";
 	}
-	
-	@GetMapping("/contents/detail/{contentsno}") // /{contentsno} 
-	public String detail_mainlist(@PathVariable("contentsno")int contentsno, Model model) {
+
+	@GetMapping("/contents/detail/{contentsno}") // /{contentsno}
+	public String detail_mainlist(@PathVariable("contentsno") int contentsno, Model model) {
 
 		ContentsDTO dto = service.detail(contentsno);
 
@@ -242,6 +241,26 @@ public class ContentsController {
 		request.setAttribute("cateno", cateno);
 
 		return "/contents/mainlist";
+
+	}
+
+	@GetMapping("/contents/delete/{contentsno}")
+	public String delete(@PathVariable("contentsno") int contentsno, HttpServletRequest request) {
+		request.setAttribute("contentsno", contentsno);
+
+		return "/contents/delete";
+	}
+
+	@PostMapping("/contents/delete")
+	public String delete(int contentsno) {
+
+		int cnt = service.delete(contentsno);
+
+		if (cnt == 1) {
+			return "redirect:/contents/list";
+		} else {
+			return "error";
+		}
 
 	}
 
