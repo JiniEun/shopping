@@ -217,8 +217,8 @@
    <div class="col-sm-offset-2 col-sm-5">
     <input id="agree" type="checkbox" name="agree" value="1" ><label for="agree"> 약관에 동의합니다 </label>
     
-    <button class="btn">회원가입</button>
-    <button type="button" class="btn" onclick="history.back()">취소</button>
+    <button class="btn btn-default">회원가입</button>
+    <button type="button" class="btn btn-default" onclick="history.back()">취소</button>
    </div>
  </div>
 </form>

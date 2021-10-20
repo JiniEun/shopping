@@ -34,8 +34,7 @@
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-8">
         <button type="submit" class="btn btn-default">수정</button>
-        <button type="button" class="btn btn-default" 
-        onclick="history.back()">취소</button>
+        <button type="button" class="btn btn-default" onclick="history.back()">취소</button>
       </div>
     </div>
   </form>

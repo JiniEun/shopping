@@ -29,7 +29,7 @@
     <c:otherwise>
     <c:forEach var="order" items="${dto.list}">
     <li class="list-group-item">${fn:substring(order.odate,0,10)}, ${order.pname},${order.quantity}, ${order.total }원
-     <a href="review/create/{order.contentsno}"><span class="badge">Rivew</span></a></li>
+     <a href="review/create/${order.contentsno}"><span class="badge">Review</span></a></li>
     </c:forEach>
     </c:otherwise>
     </c:choose>
