@@ -40,7 +40,7 @@
 <body>
   <div class="container">
 
-    <h2>상품 상세 페이지</h2>
+    <h2>상품 상세 페이지${requestScope['HTTP_REFERRER']}</h2>
     <div class="panel panel-default">
       <div class="panel-heading">상품번호</div>
       <div class="panel-body">${dto.contentsno}</div>

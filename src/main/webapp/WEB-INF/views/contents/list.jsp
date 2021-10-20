@@ -15,7 +15,6 @@
 		url += "&word=${word}";
 		url += "&nowPage=${nowPage}";
 		location.href = url;
-
 	}
 
 	function fileDown(filename) {
