@@ -69,7 +69,12 @@
       <button type="button" class="btn btn-default" onclick="location.href='../admin/contents/create'">등록</button>
       <button type="button" class="btn btn-default" onclick="updateM()">수정</button>
       <button type="button" class="btn btn-default" onclick="deleteM()">삭제</button>
-      <button type="button" class="btn btn-default" onclick="listM()">목록</button>
+      <c:if test="${beforePage=='mainlist'}">
+      <button type="button" class="btn btn-default" onclick="mainlistM()">목록</button>
+      </c:if>
+      <c:if test="${beforePage=='list'}">
+      <button type="button" class="btn btn-default" onclick="listM()">목록</button> 
+      </c:if>
       </c:when>
       <c:otherwise>
       <button type="button" class="btn btn-default">장바구니 담기</button>
