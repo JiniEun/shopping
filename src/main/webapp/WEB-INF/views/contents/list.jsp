@@ -92,15 +92,15 @@
     <td>${dto.price}</td>
     <td>${dto.rdate}</td>
     <td>${dto.stock}</td>
-    <td> <a href="./update/${dto.contentsno }">
+    <td> <a href="../admin/contents/update/${dto.contentsno }">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
         /
-        <a href="./delete/${dto.contentsno }">
+        <a href="../admin/contents/delete/${dto.contentsno }">
           <span class="glyphicon glyphicon-trash"></span>
         </a>
         /
-        <a href="./updateFile/${dto.contentsno }/${dto.filename}">
+        <a href="../admin/contents/updateFile/${dto.contentsno }/${dto.filename}">
           <span class="glyphicon glyphicon-picture"></span>
         </a>     
     </td>

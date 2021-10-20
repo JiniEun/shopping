@@ -84,7 +84,7 @@ public class ContentsController {
 		}
 	}
 
-	@GetMapping("/contents/updateFile/{contentsno}/{oldfile}")
+	@GetMapping("/admin/contents/updateFile/{contentsno}/{oldfile}")
 	public String updateFileForm(@PathVariable("contentsno") int contentsno, @PathVariable("oldfile") String oldfile,
 			Model model) {
 		model.addAttribute("contentsno", contentsno);
@@ -148,7 +148,7 @@ public class ContentsController {
 		}
 	}
 
-	@GetMapping("/contents/update/{contentsno}")
+	@GetMapping("/admin/contents/update/{contentsno}")
 	public String update(@PathVariable("contentsno") int contentsno, Model model) {
 
 		ContentsDTO dto = service.detail(contentsno);
@@ -179,7 +179,7 @@ public class ContentsController {
 		}
 	}
 
-	@GetMapping("/admin/create")
+	@GetMapping("/admin/contents/create")
 	public String create() {
 
 		return "/contents/create";
@@ -244,7 +244,7 @@ public class ContentsController {
 
 	}
 
-	@GetMapping("/contents/delete/{contentsno}")
+	@GetMapping("/admin/contents/delete/{contentsno}")
 	public String delete(@PathVariable("contentsno") int contentsno, HttpServletRequest request) {
 		request.setAttribute("contentsno", contentsno);
 

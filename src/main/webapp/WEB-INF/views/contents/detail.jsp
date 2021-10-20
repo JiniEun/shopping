@@ -10,12 +10,12 @@
 <script type="text/javascript">
 
 	function updateM() {
-		var url = "./update/${dto.contentsno}";
+		var url = "../admin/contents/update/${dto.contentsno}";
 		location.href = url;
 	}
 	
 	function deleteM() {
-		var url = "./delete/${dto.contentsno}";
+		var url = "../admin/contents/delete/${dto.contentsno}";
 		location.href = url;
 	}
 
@@ -24,6 +24,14 @@
 		url += "?nowPage=${param.nowPage}";
 		url += "&col=${param.col}";
 		url += "&word=${param.word}";
+		location.href = url;
+	}
+	
+	function mainlistM() {
+		var url = "./mainlist/${dto.cateno}";
+		url += "?col=${param.col}";
+		url += "&word=${param.word}";
+		url += "&nowPage=${param.nowPage}";
 		location.href = url;
 	}
 </script>
@@ -56,10 +64,18 @@
 
     </div>
     <div>
-      <button type="button" class="btn" onclick="location.href='../admin/notice/create'">등록</button>
-      <button type="button" class="btn" onclick="updateM()">수정</button>
-      <button type="button" class="btn" onclick="deleteM()">삭제</button>
-      <button type="button" class="btn" onclick="listM()">목록</button>
+    <c:choose>
+    <c:when test="${not empty sessionScope.id && sessionScope.grade == 'A'}">
+      <button type="button" class="btn btn-default" onclick="location.href='../admin/contents/create'">등록</button>
+      <button type="button" class="btn btn-default" onclick="updateM()">수정</button>
+      <button type="button" class="btn btn-default" onclick="deleteM()">삭제</button>
+      <button type="button" class="btn btn-default" onclick="listM()">목록</button>
+      </c:when>
+      <c:otherwise>
+      <button type="button" class="btn btn-default">장바구니 담기</button>
+      <button type="button" class="btn btn-default" onclick="mainlistM()">목록</button>
+      </c:otherwise>
+      </c:choose>
     </div>
   </div>
 </body>
