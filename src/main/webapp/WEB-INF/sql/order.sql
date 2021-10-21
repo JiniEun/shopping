@@ -6,9 +6,29 @@ CREATE TABLE cart(
 	FOREIGN KEY (ID) REFERENCES member (ID)
 );
 
+-- 추가한 
+CREATE TABLE cart(
+	cartno		NUMBER(10)		NOT NULL	PRIMARY KEY,
+	ID			VARCHAR2(10)	NULL ,
+	contentsno	NUMBER(10)  NULL ,
+	amount		NUMBER(10)  NULL ,
+	FOREIGN KEY (ID) REFERENCES member (ID)
+);
+
 COMMENT ON TABLE cart is '장바구니';
 COMMENT ON COLUMN cart.cartno is '장바구니번호';
 COMMENT ON COLUMN cart.id is '아이디';
+
+
+ALTER TABLE cart ADD contentsno NUMBER(10)  NULL;
+ALTER TABLE cart ADD amount NUMBER(10)  NULL;
+
+COMMENT ON COLUMN cart.contentsno is '상품번호 ';
+COMMENT ON COLUMN cart.amount is '수량';
+
+ALTER TABLE cart
+ADD CONSTRAINTS contentsno FOREIGN KEY (contentsno) 
+REFERENCES contents(contentsno);
 
 
 drop table orders CASCADE CONSTRAINTS;
@@ -63,3 +83,52 @@ on member.id = cart.id	 inner join orders
 on cart.id = orders.id		
 where member.id = 'user1';	
 
+select COUNT(*)
+from member inner join cart 		
+on member.id = cart.id	 inner join orders		
+on cart.id = orders.id		
+where member.id = 'user2';	
+
+
+select member.id, cart.CARTNO, orders.ORDERNO, orders.CONTENTSNO, 
+orders.QUANTITY, orders.PNAME, orders.total, contents.FILENAME, contents.DETAIL
+from member inner join cart 		
+on member.id = cart.id	 inner join orders		
+on cart.id = orders.id	inner JOIN CONTENTS
+ON contents.CONTENTSNO = cart.CONTENTSNO 
+where member.id = 'user1';	
+
+
+
+select COUNT(*) 
+from cart
+where id = 'user2' AND contentsno = 1;	
+
+--#{amount}
+UPDATE CART SET amount = 1
+where id = 'user2' 
+AND contentsno = 1;	
+
+SELECT member.id, cart.CARTNO, cart.CONTENTSNO, contents.PNAME, 
+		contents.FILENAME, contents.DETAIL, contents.PRICE 
+FROM MEMBER INNER JOIN cart
+ON member.id = cart.id INNER JOIN CONTENTS
+ON contents.CONTENTSNO = cart.CONTENTSNO
+WHERE member.id = 'user1';
+
+
+select constraint_name, table_name, r_constraint_name
+from user_constraints
+where constraint_name = 'SYS_C0028323';
+
+
+UPDATE orders
+SET cartno = NULL
+where contentsno = 15;
+
+SELECT *
+FROM cart
+WHERE contentsno = 15;
+
+DELETE FROM cart
+WHERE cartno = 2;

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.cart.CartMapper">
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM cart
+		WHERE cartno=#{cartno}
+	</delete>
+	
+	<update id="delCart" parameterType="int">
+		UPDATE orders
+		SET cartno = NULL
+		where contentsno = #{contentsno}
+	</update>
+
+	<select id="cnt" parameterType="Map" resultType="int">
+		select COUNT(*)
+		from cart
+		where id = #{id} and contentsno = #{contentsno}
+	</select>
+	
+	<select id="findCart" parameterType="int" resultType="com.study.cart.CartDTO">
+		select *
+		from cart
+		where contentsno = #{contentsno}
+	</select>
+
+	<update id="modifyCart" parameterType="Map">
+		UPDATE CART 
+		SET amount = #{amount}
+		where id = #{id}
+		AND contentsno = #{contentsno};
+	</update>
+
+	<insert id="create" parameterType="com.study.cart.CartDTO">
+		insert into cart(cartno, id, contentsno, amount)
+		values((select nvl(max(cartno),0)+1 from cart), #{id}, #{contentsno}, #{amount})
+	</insert>
+
+	<select id="list" parameterType="String" resultType="com.study.cart.JoinDTO">
+		SELECT member.id, cart.CARTNO, cart.CONTENTSNO, contents.PNAME, 
+		contents.FILENAME, contents.DETAIL, contents.price
+		FROM MEMBER INNER JOIN cart
+		ON member.id = cart.id INNER JOIN CONTENTS
+		ON contents.CONTENTSNO = cart.CONTENTSNO
+		WHERE member.id = #{id}
+	</select>
+
+</mapper>
