@@ -47,8 +47,7 @@ ${admin}
 	name="word" required="required" value="${word}">
 </div>
 <button class="btn btn-default">검색</button>
-<button class="btn btn-default" type="button" 
-onclick="location.href='create'">등록</button>
+<button class="btn btn-default" type="button" onclick="location.href='/member/agree'">등록</button>
 </form>
 
 <br>
