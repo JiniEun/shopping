@@ -1,6 +1,7 @@
 package com.study.cart;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,9 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public int cnt(String id) {
+	public int cnt(Map map) {
 		// TODO Auto-generated method stub
-		return mapper.cnt(id);
+		return mapper.cnt(map);
 	}
 
 	@Override

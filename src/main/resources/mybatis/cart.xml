@@ -10,27 +10,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE cartno=#{cartno}
 	</delete>
 
-	<select id="cnt" parameterType="String" resultType="int">
+	<select id="cnt" parameterType="Map" resultType="int">
 		select COUNT(*)
-		from member inner join cart
-		on member.id = cart.id inner join orders
-		on cart.id = orders.id
-		where member.id = #{id}
+		from cart
+		where id = #{id} and contentsno = #{contentsno}
 	</select>
 
+	<update id="modifyCart" parameterType="Map">
+		UPDATE CART 
+		SET amount = #{amount}
+		where id = #{id}
+		AND contentsno = #{contentsno};
+	</update>
+
 	<insert id="create" parameterType="com.study.cart.CartDTO">
-		insert into cart(cartno, id)
-		values((select nvl(max(cartno),0)+1 from cart), #{id})
+		insert into cart(cartno, id, contentsno, amount)
+		values((select nvl(max(cartno),0)+1 from cart), #{id}, #{contentsno}, #{amount})
 	</insert>
 
 	<select id="list" parameterType="String" resultType="com.study.cart.JoinDTO">
-		select member.id, cart.CARTNO, orders.ORDERNO, orders.CONTENTSNO,
-		orders.QUANTITY, orders.PNAME, orders.total, contents.FILENAME, contents.DETAIL
-		from member inner join cart
-		on member.id = cart.id inner join orders
-		on cart.id = orders.id inner JOIN CONTENTS
-		ON contents.CONTENTSNO = orders.CONTENTSNO 
-		where member.id = #{id}
+		SELECT member.id, cart.CARTNO, cart.CONTENTSNO, contents.PNAME, 
+		contents.FILENAME, contents.DETAIL, contents.price
+		FROM MEMBER INNER JOIN cart
+		ON member.id = cart.id INNER JOIN CONTENTS
+		ON contents.CONTENTSNO = cart.CONTENTSNO
+		WHERE member.id = #{id}
 	</select>
 
 </mapper>

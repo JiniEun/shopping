@@ -16,19 +16,32 @@
 		url += "&nowPage=${nowPage}";
 		location.href = url;
 	}
+  	
+  	function deleteCart(orderno) {
+		var url = "../contents/detail";
+		url += "?contentsno=" + contentsno;
+		url += "&col=${col}";
+		url += "&word=${word}";
+		url += "&nowPage=${nowPage}";
+		location.href = url;
+	}
     
-    function selectAll(selectAll)  {
+	function selectAll(selectAll)  {
    	  const checkboxes = document.getElementsByName('content_check');
    	  
    	  checkboxes.forEach((checkbox) => {
    	    checkbox.checked = selectAll.checked;
    	  })
-   }
+	} 
   </script>
 </head>
 <body>
 
 	<div class="container">
+	<form class="form-horizontal" 
+        action="/order"
+        method="post"
+        enctype="multipart/form-data">   
 		<h2>장바구니</h2>
 		<br>
 		<c:choose>
@@ -45,21 +58,21 @@
 			<c:otherwise>
 				<c:set var="list" value="${list}" />
 				<div class="row" style="text-align: center;">
-					<div class="col-sm-2" style="height:25.33;"><h3>
-						<input type='checkbox' name='checkall' value='selectall'
-							style="zoom:1.5;" onclick='selectAll(this)' /></h3>
+					<div class="col-sm-2" style="height:25.33;"><h4>
+						<input type='checkbox' name='checkall' id='checkall' class='.check' value='selectall'
+							style="zoom:1.5;" onclick='selectAll(this)'/></h4>
 					</div>
 					<div class="col-sm-2">
-						<h3>이미지</h3>
+						<h4>상품 이미지</h4>
 					</div>
 					<div class="col-sm-2">
-						<h3>상품명</h3>
+						<h4>상품명</h4>
 					</div>
 					<div class="col-sm-2">
-						<h3>상품 가격</h3>
+						<h4>상품 가격</h4>
 					</div>
 					<div class="col-sm-2">
-						<h3>선택</h3>
+						<h4>취소</h4>
 					</div>
 				</div>
 				<br>
@@ -67,7 +80,7 @@
 					<div class="row" style="text-align: center;">
 						<div class="col-sm-2"
 							style="text-align: center; vertical-align: middle;">
-							<label><input type="checkbox" name="content_check"
+							<label><input type="checkbox" name="content_check" class='.check' 
 								style="zoom:1.5;" value="${dto.contentsno}"></label>
 						</div>
 						<div class="col-sm-2"
@@ -85,7 +98,7 @@
 						</div>
 						<div class="col-sm-2">
 							<p>
-								<b>${dto.total}</b>
+								<b>${dto.price}</b>
 							</p>
 						</div>
 						<div class="col-sm-2"
@@ -100,6 +113,9 @@
 						</div>
 					</div>
 				</c:forEach>
+				<div class="row">
+				
+				</div>
 
 				<div class="row">
 					<div class="col-sm-2">
@@ -116,6 +132,7 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
+		</form>
 	</div>
 </body>
 </html>
