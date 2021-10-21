@@ -11,4 +11,8 @@ public interface CartMapper {
 	int cnt(Map map);
 
 	List<JoinDTO> list(String id);
+	
+	CartDTO findCart(int contentsno);
+	
+	int delCart(int contentsno);
 }

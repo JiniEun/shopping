@@ -9,11 +9,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM cart
 		WHERE cartno=#{cartno}
 	</delete>
+	
+	<update id="delCart" parameterType="int">
+		UPDATE orders
+		SET cartno = NULL
+		where contentsno = #{contentsno}
+	</update>
 
 	<select id="cnt" parameterType="Map" resultType="int">
 		select COUNT(*)
 		from cart
 		where id = #{id} and contentsno = #{contentsno}
+	</select>
+	
+	<select id="findCart" parameterType="int" resultType="com.study.cart.CartDTO">
+		select *
+		from cart
+		where contentsno = #{contentsno}
 	</select>
 
 	<update id="modifyCart" parameterType="Map">

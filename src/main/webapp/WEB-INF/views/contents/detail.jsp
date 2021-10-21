@@ -42,30 +42,6 @@
 			return false;
 		}
 	}
-	/* 	$(document).ready(function(){
-	 $('#toCart').click(function() {
-	 var cartConfirm = confirm('장바구니로 이동하시겠습니까?');
-	 let form = {
-	 contentsno : $('#contentsno').val()
-	 }
-	 console.log(form.contentsno);
-	 if (cartConfirm) {
-	 $.ajax({ 
-	 url: "../cartlist", 
-	 type: "POST", 
-	 data: form.contentsno,
-	 success: function(data) { 
-	 window.location.replace("../cartlist");
-	 //location.replace ="../cartlist";
-	 },
-	 error: function(request,status,error){
-	 alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-	 }     
-	
-	 });
-	 }else { return false; }
-	 });
-	 }); */
 </script>
 
 </head>

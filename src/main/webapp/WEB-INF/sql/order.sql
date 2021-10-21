@@ -109,5 +109,26 @@ UPDATE CART SET amount = 1
 where id = 'user2' 
 AND contentsno = 1;	
 
+SELECT member.id, cart.CARTNO, cart.CONTENTSNO, contents.PNAME, 
+		contents.FILENAME, contents.DETAIL, contents.PRICE 
+FROM MEMBER INNER JOIN cart
+ON member.id = cart.id INNER JOIN CONTENTS
+ON contents.CONTENTSNO = cart.CONTENTSNO
+WHERE member.id = 'user1';
 
 
+select constraint_name, table_name, r_constraint_name
+from user_constraints
+where constraint_name = 'SYS_C0028323';
+
+
+UPDATE orders
+SET cartno = NULL
+where contentsno = 15;
+
+SELECT *
+FROM cart
+WHERE contentsno = 15;
+
+DELETE FROM cart
+WHERE cartno = 2;

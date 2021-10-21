@@ -11,15 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.study.contents.ContentsDTO;
-
-import oracle.net.aso.k;
-
-import oracle.net.aso.v;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CartController {
@@ -35,9 +29,6 @@ public class CartController {
 		if (id == null) {
 			return "redirect:/member/login/";
 		} else {
-
-//			MemberDTO dto = service.mypage(id);
-//			model.addAttribute("dto", dto);
 
 			String flag = request.getParameter("contentsno");
 
@@ -93,5 +84,21 @@ public class CartController {
 			return "/cartlist";
 
 		}
+	}
+	@RequestMapping("/cart/delete/{contentsno}")
+	public String delete(@PathVariable("contentsno") int contentsno) {
+
+		int cnt1 = service.delCart(contentsno);
+
+		CartDTO cart = service.findCart(contentsno);
+
+		int cnt2 = service.delete(cart.getCartno());
+
+		if (cnt2 == 1) {
+			return "/cartlist";
+		} else {
+			return "error";
+		}
+
 	}
 }

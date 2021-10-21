@@ -36,4 +36,16 @@ public class CartServiceImpl implements CartService {
 		return mapper.list(id);
 	}
 
+	@Override
+	public CartDTO findCart(int contentsno) {
+		// TODO Auto-generated method stub
+		return mapper.findCart(contentsno);
+	}
+
+	@Override
+	public int delCart(int contentsno) {
+		// TODO Auto-generated method stub
+		return mapper.delCart(contentsno);
+	}
+
 }
