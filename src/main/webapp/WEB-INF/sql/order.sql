@@ -63,3 +63,20 @@ on member.id = cart.id	 inner join orders
 on cart.id = orders.id		
 where member.id = 'user1';	
 
+select COUNT(*)
+from member inner join cart 		
+on member.id = cart.id	 inner join orders		
+on cart.id = orders.id		
+where member.id = 'user2';	
+
+
+select member.id, cart.CARTNO, orders.ORDERNO, orders.CONTENTSNO, 
+orders.QUANTITY, orders.PNAME, orders.total, contents.FILENAME, contents.DETAIL
+from member inner join cart 		
+on member.id = cart.id	 inner join orders		
+on cart.id = orders.id	inner JOIN CONTENTS
+ON contents.CONTENTSNO = orders.CONTENTSNO 
+where member.id = 'user1';	
+
+
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.cart.CartMapper">
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM cart
+		WHERE cartno=#{cartno}
+	</delete>
+
+	<select id="cnt" parameterType="String" resultType="int">
+		select COUNT(*)
+		from member inner join cart
+		on member.id = cart.id inner join orders
+		on cart.id = orders.id
+		where member.id = #{id}
+	</select>
+
+	<insert id="create" parameterType="com.study.cart.CartDTO">
+		insert into cart(cartno, id)
+		values((select nvl(max(cartno),0)+1 from cart), #{id})
+	</insert>
+
+	<select id="list" parameterType="String" resultType="com.study.cart.JoinDTO">
+		select member.id, cart.CARTNO, orders.ORDERNO, orders.CONTENTSNO,
+		orders.QUANTITY, orders.PNAME, orders.total, contents.FILENAME, contents.DETAIL
+		from member inner join cart
+		on member.id = cart.id inner join orders
+		on cart.id = orders.id inner JOIN CONTENTS
+		ON contents.CONTENTSNO = orders.CONTENTSNO 
+		where member.id = #{id}
+	</select>
+
+</mapper>
