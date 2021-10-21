@@ -98,7 +98,7 @@ public class NoticeController {
 		}
 	}
 
-	@GetMapping("/notice/update")
+	@GetMapping("/admin/notice/update")
 	public String update(int noticeno, Model model) {
 
 		model.addAttribute("dto", service.read(noticeno));
@@ -130,7 +130,7 @@ public class NoticeController {
 
 	}
 
-	@GetMapping("/notice/delete")
+	@GetMapping("/admin/notice/delete")
 	public String delete() {
 
 		return "/notice/delete";

@@ -10,19 +10,19 @@ import lombok.Data;
 
 @Data
 public class MemberDTO {
-	private String id                            ;
-	private String passwd                        ;
-	private String mname                         ;
-	private String tel                           ;
-	private String email                         ;
-	private String zipcode                       ;
-	private String address1                      ;
-	private String address2                      ;
-	private String job                           ;
-	private String mdate                         ;
-	private String fname                         ;
-	private MultipartFile fnameMF				 ;
-	private String grade                         ;
-	
-	private List<OrdersDTO> list				 ;
+	private String id;
+	private String passwd;
+	private String mname;
+	private String tel;
+	private String email;
+	private String zipcode;
+	private String address1;
+	private String address2;
+	private String job;
+	private String mdate;
+	private String fname;
+	private MultipartFile fnameMF;
+	private String grade;
+
+	private List<OrdersDTO> list;
 }

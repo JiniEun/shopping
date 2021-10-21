@@ -31,14 +31,21 @@ public class ContentsController {
 	private ContentsService service;
 
 	@GetMapping("/contents/detail") // /{contentsno} @PathVariable("contentsno")
-	public String detail(int contentsno, Model model) {
+	public String detail(int contentsno, Model model, HttpServletRequest request) {
 
 		ContentsDTO dto = service.detail(contentsno);
-
 		String content = dto.getDetail().replaceAll("\r\n", "<br>");
-
 		dto.setDetail(content);
 		System.out.println(dto.toString());
+
+		// mainlist에서 왔는 지 list에서 왔는 지 확인 
+		String referer = (String) request.getHeader("REFERER");
+
+		if(referer.contains("mainlist")) {
+			model.addAttribute("beforePage", "mainlist");
+		}else if(!referer.contains("mainlist") && referer.contains("list")) {
+			model.addAttribute("beforePage", "list");
+		}
 
 		model.addAttribute("dto", dto);
 

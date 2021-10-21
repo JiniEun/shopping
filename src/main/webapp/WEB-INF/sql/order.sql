@@ -46,7 +46,20 @@ select  m.id, m.mname, m.fname, m.zipcode, m.address1, m.address2,
          o.orderno,o.odate,o.pname,o.quantity,o.total,o.contentsno
  from  member m left outer join orders o
     on  m.id = o.id
-where  m.id='test'; -- user1
+where  m.id='user1'; 
+-- user1
 
+-- inner join
 
+select *		
+from member inner join cart 		
+on member.id = cart.id	 inner join orders		
+on cart.id = orders.id		
+where member.id = 'user1';	
+
+select member.id, cart.CARTNO, orders.ORDERNO, orders.CONTENTSNO, orders.QUANTITY, orders.PNAME, orders.total
+from member inner join cart 		
+on member.id = cart.id	 inner join orders		
+on cart.id = orders.id		
+where member.id = 'user1';	
 

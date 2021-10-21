@@ -32,7 +32,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
       ModelAndView modelAndView) throws Exception {
     System.out.println("postHandle executed.");
-    modelAndView.addObject("admin", "관리자 관련 기능을 출력합니다.");
+    //modelAndView.addObject("admin", "관리자 관련 기능을 출력합니다.");
   }
  
 // JSP등 View 페이지 출력전에 작동됨.
