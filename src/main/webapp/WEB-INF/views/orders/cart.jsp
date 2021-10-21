@@ -47,10 +47,37 @@
    	    checkbox.checked = selectAll.checked;
    	  })
 	} 
+	
+	function orderAll()  {
+		const checkboxes = document.getElementsByName('content_check');
+		/* var form = new Array();  */
+		var form = document.createElement('form');
+
+		var objs;
+
+		objs = document.createElement('input');
+
+		objs.setAttribute('type', 'hidden');
+		
+		checkboxes.forEach(function(element, index){
+			objs.setAttribute('contentsno'+index, 'contentsno'+index);
+			objs.setAttribute('value', element.value);
+		})
+
+		form.appendChild(objs);
+
+		form.setAttribute('method', 'post');
+
+		form.setAttribute('action', "/orders/create");
+
+		document.body.appendChild(form);
+
+		form.submit();
+		
+	} 
   </script>
 </head>
 <body>
-
 	<div class="container">
 		<form class="form-horizontal" action="/cartlist" method="post"
 			enctype="multipart/form-data">
@@ -136,8 +163,8 @@
 					<div class="row">
 						<div class="col-sm-2">
 							<button type="button" class="btn btn-lg text-white"
-								style="background-color: #585858; color: white;">전체 상품
-								주문</button>
+								style="background-color: #585858; color: white;"
+								onclick="orderAll()">전체 상품 주문</button>
 						</div>
 						<div class="col-sm-2">
 							<button type="button" class="btn btn-lg">선택 상품 주문</button>

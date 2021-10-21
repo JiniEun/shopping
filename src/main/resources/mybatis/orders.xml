@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.orders.OrdersMapper">
+	<insert id="create" parameterType="com.study.orders.OrdersDTO">
+		insert into orders(orderno, cartno, contentsno, odate, quantity, total, payment, id, mname, pname)
+		values((select nvl(max(orderno),0)+1 from orders),#{cartno},#{contentsno},sysdate,#{quantity},#{total},#{payment},
+			#{id},#{mname},#{pname})
+	</insert>
+	
+	<select id="list" parameterType="Map" resultType="com.study.orders.OrdersDTO">
+		SELECT member.id, member.mname, contents.pname
+		FROM MEMBER INNER JOIN orders
+		ON member.id = orders.id INNER JOIN contents
+		ON contents.contentsno = #{contentsno}
+		WHERE member.id = #{id}
+	</select>
+</mapper>
