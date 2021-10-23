@@ -42,6 +42,12 @@
 			return false;
 		}
 	}
+
+	function cartlistM() {
+		alert('주문서로 이동합니다.');
+
+		window.location.replace("../orders/create");
+	}
 </script>
 
 </head>
@@ -95,6 +101,8 @@
 						</c:if>
 					</c:when>
 					<c:otherwise>
+						<button type="submit" class="btn btn-default" id="toOrder"
+							onclick="orderM()">주문하기</button>
 						<button type="submit" class="btn btn-default" id="toCart"
 							onclick="cartlistM()">장바구니 담기</button>
 						<button type="button" class="btn btn-default"
