@@ -8,6 +8,7 @@
 <title>Bootstrap Example</title>
 <meta charset="utf-8">
 <script>
+	
   	function detail(contentsno) {
 		var url = "../contents/detail";
 		url += "?contentsno=" + contentsno;
@@ -51,17 +52,17 @@
 	function orderAll()  {
 		const checkboxes = document.getElementsByName('content_check');
 		/* var form = new Array();  */
-		var form = document.createElement('form');
-
-		var objs;
-
-		objs = document.createElement('input');
-
-		objs.setAttribute('type', 'hidden');
+		var form = document.createElement('form');		
+		
+		var	objs;
 		
 		checkboxes.forEach(function(element, index){
-			objs.setAttribute('contentsno'+index, 'contentsno'+index);
+			objs = document.createElement('input');
+
+			objs.setAttribute('type', 'hidden');
+			objs.setAttribute('name', 'contentsno[]');
 			objs.setAttribute('value', element.value);
+			form.appendChild(objs);
 		})
 
 		form.appendChild(objs);
@@ -75,6 +76,24 @@
 		form.submit();
 		
 	} 
+	
+	function totalPrice(){
+		let clist_price = [];
+		<c:forEach var="list" items="${list}" varStatus="status">
+		clist_price.push("${list.price}");
+		</c:forEach>
+		
+		console.log(clist_price);
+		
+		let sumsum = 0;
+		
+		clist_price.forEach( (item) => {
+		  sumsum += parseInt(item);
+		});
+		
+		console.log('forEach item : ', sumsum);
+		return sumsum;
+	}
   </script>
 </head>
 <body>
@@ -96,69 +115,84 @@
 				</c:when>
 				<c:otherwise>
 					<c:set var="list" value="${list}" />
-					<div class="row" style="text-align: center;">
-						<div class="col-sm-2" style="height: 25.33;">
-							<h4>
-								<input type='checkbox' name='checkall' id='checkall'
-									class='.check' value='selectall' style="zoom: 1.5;"
-									onclick='selectAll(this)' />
-							</h4>
-						</div>
-						<div class="col-sm-2">
-							<h4>상품 이미지</h4>
-						</div>
-						<div class="col-sm-2">
-							<h4>상품명</h4>
-						</div>
-						<div class="col-sm-2">
-							<h4>상품 가격</h4>
-						</div>
-						<div class="col-sm-2">
-							<h4>취소</h4>
-						</div>
-					</div>
-					<br>
-					<c:forEach var="dto" begin="0" end="3" items="${list}">
-						<div class="row" style="text-align: center;">
-							<div class="col-sm-2"
-								style="text-align: center; vertical-align: middle;">
-								<label><input type="checkbox" name="content_check"
-									class='.check' style="zoom: 1.5;" value="${dto.contentsno}"></label>
-							</div>
-							<div class="col-sm-2"
-								style="text-align: center; vertical-align: middle;">
-								<a href="javascript:detail('${dto.contentsno}')">
-									<p>
-										<img src="/pstorage/${dto.filename }" class="img-thumbnail"
-											width="100" height="auto">
-									</p>
-								</a>
-							</div>
-							<div class="col-sm-2"
-								style="text-align: center; vertical-align: middle;">
-								<p>${dto.pname }</p>
+					<div class="panel panel-default">
+						<div class="panel-heading" style="text-align: center;">
+							<div class="col-sm-2" style="height: 25.33;">
+								<h4>
+									<input type='checkbox' name='checkall' id='checkall'
+										class='.check' value='selectall' style="zoom: 1.5;"
+										onclick='selectAll(this)' />
+								</h4>
 							</div>
 							<div class="col-sm-2">
-								<p>
-									<b>${dto.price}</b>
-								</p>
+								<h4>상품 이미지</h4>
 							</div>
-							<div class="col-sm-2"
-								style="display: table-cell; vertical-align: middle;">
-								<button type="button" class="btn btn-lg text-white"
-									style="background-color: white;"
-									onclick="deleteCart(${dto.contentsno})">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-										fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-									<path fill-rule="evenodd"
-											d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
-									<path fill-rule="evenodd"
-											d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" /> </svg>
-								</button>
+							<div class="col-sm-2">
+								<h4>상품명</h4>
+							</div>
+							<div class="col-sm-2">
+								<h4>수량</h4>
+							</div>
+							<div class="col-sm-2">
+								<h4>상품 가격</h4>
+							</div>
+							<div>
+								<h4>취소</h4>
 							</div>
 						</div>
-					</c:forEach>
-					<div class="row"></div>
+						<c:forEach var="dto" items="${list}">
+							<div class="panel-body"
+								style="text-align: center; border-top: 2px solid #dddddd;">
+								<div class="col-sm-2"
+									style="text-align: center; vertical-align: middle;">
+									<label><input type="checkbox" name="content_check"
+										class='.check' style="zoom: 1.5;" value="${dto.contentsno}"></label>
+								</div>
+								<div class="col-sm-2"
+									style="text-align: center; vertical-align: middle;">
+									<a href="javascript:detail('${dto.contentsno}')">
+										<p>
+											<img src="/pstorage/${dto.filename }" class="img-thumbnail"
+												width="100" height="auto">
+										</p>
+									</a>
+								</div>
+								<div class="col-sm-2"
+									style="text-align: center; vertical-align: middle;">
+									<p>${dto.pname }</p>
+								</div>
+								<div class="col-sm-2"
+									style="text-align: center; vertical-align: middle;">
+									<p>${dto.pname }</p>
+								</div>
+								<div class="col-sm-2">
+									<p>
+										<b>${dto.price}</b>
+									</p>
+								</div>
+								<div class="col-sm-2"
+									style="display: table-cell; vertical-align: middle;">
+									<button type="button" class="btn btn-lg text-white"
+										style="background-color: white;"
+										onclick="deleteCart(${dto.contentsno})">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+											fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+									<path fill-rule="evenodd"
+												d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+									<path fill-rule="evenodd"
+												d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" /> </svg>
+									</button>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-body">총 주문 금액</div>
+
+						<div class="panel-body"><script type="text/JavaScript">document.write(totalPrice());</script></div>
+
+
+					</div>
 
 					<div class="row">
 						<div class="col-sm-2">

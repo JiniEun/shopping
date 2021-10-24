@@ -14,7 +14,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT member.id, member.mname, contents.pname
 		FROM MEMBER INNER JOIN orders
 		ON member.id = orders.id INNER JOIN contents
-		ON contents.contentsno = #{contentsno}
+		ON contents.contentsno = cart.contentsno
+		WHERE member.id = #{id}
+	</select>
+	
+	<select id="orderCartlist" parameterType="Map" resultType="com.study.orders.OrdersDTO">
+		SELECT member.id, member.mname, contents.pname, cart.CONTENTSNO 
+		FROM cart INNER JOIN member
+		ON member.id = cart.id INNER JOIN contents
+		ON contents.contentsno = cart.contentsno
 		WHERE member.id = #{id}
 	</select>
 </mapper>

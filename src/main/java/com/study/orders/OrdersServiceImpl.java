@@ -24,4 +24,10 @@ public class OrdersServiceImpl implements OrdersService {
 		return mapper.list(map);
 	}
 
+	@Override
+	public List<OrdersDTO> orderCartlist(Map map) {
+		// TODO Auto-generated method stub
+		return mapper.orderCartlist(map);
+	}
+
 }
