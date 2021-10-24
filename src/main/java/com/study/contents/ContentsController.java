@@ -52,20 +52,20 @@ public class ContentsController {
 		return "/contents/detail";
 	}
 
-	@GetMapping("/contents/detail/{contentsno}") // /{contentsno}
-	public String detail_mainlist(@PathVariable("contentsno") int contentsno, Model model) {
-
-		ContentsDTO dto = service.detail(contentsno);
-
-		String content = dto.getDetail().replaceAll("\r\n", "<br>");
-
-		dto.setDetail(content);
-		System.out.println(dto.toString());
-
-		model.addAttribute("dto", dto);
-
-		return "/contents/detail";
-	}
+//	@GetMapping("/contents/detail/{contentsno}") // /{contentsno}
+//	public String detail_mainlist(@PathVariable("contentsno") int contentsno, Model model) {
+//
+//		ContentsDTO dto = service.detail(contentsno);
+//
+//		String content = dto.getDetail().replaceAll("\r\n", "<br>");
+//
+//		dto.setDetail(content);
+//		System.out.println(dto.toString());
+//
+//		model.addAttribute("dto", dto);
+//
+//		return "/contents/detail";
+//	}
 
 	@PostMapping("/contents/updateFile")
 	public String updateFile(MultipartFile filenameMF, String oldfile, int contentsno, HttpServletRequest request)

@@ -52,9 +52,11 @@
 
     </div>
     <div>
+    <c:if test="${not empty sessionScope.id && sessionScope.grade == 'A'}">
       <button type="button" class="btn" onclick="location.href='../admin/notice/create'">등록</button>
       <button type="button" class="btn" onclick="updateM()">수정</button>
       <button type="button" class="btn" onclick="deleteM()">삭제</button>
+      </c:if>   
       <button type="button" class="btn" onclick="listM()">목록</button>
     </div>
   </div>

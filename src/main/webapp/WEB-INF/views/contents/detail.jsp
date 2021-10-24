@@ -42,16 +42,49 @@
 			return false;
 		}
 	}
+	
+	function orderM()  {
+		
+		alert('주문서로 이동합니다.');
+		/* var form = new Array();  */
+		var form = document.createElement('form');
+
+		var objs;
+
+		objs = document.createElement('input');
+
+		objs.setAttribute('type', 'hidden');
+		
+		objs.setAttribute('contentsno','contentsno');
+		
+		objs.setAttribute('value',document.getElementById('contentsno').value);
+		
+		objs.setAttribute('pname','pname');
+		
+		objs.setAttribute('value',document.getElementById('pname').value);
+		console.log(document.getElementById('pname').value);
+
+		form.appendChild(objs);
+
+		form.setAttribute('method', 'post');
+
+		form.setAttribute('action', "/orders/create");
+
+		document.body.appendChild(form);
+
+		form.submit();
+		
+	} 
 </script>
 
 </head>
 <body>
 	<div class="container">
-		<form form class="form-horizontal" action="/cartlist" method="post"
+	 	<form form class="form-horizontal" action="/cartlist" method="post"
 			enctype="multipart/form-data">
 			<input type="hidden" name="contentsno" id="contentsno"
 				value="${dto.contentsno}"> <input type="hidden" name="pname"
-				id="pname" value="${dto.pname}">
+				id="pname" value="${dto.pname}"> 
 
 
 			<h2>상품 상세 페이지${requestScope['HTTP_REFERRER']}</h2>
@@ -95,6 +128,8 @@
 						</c:if>
 					</c:when>
 					<c:otherwise>
+						<button type="button" class="btn btn-default" id="toOrder"
+							onclick="orderM()">주문하기</button>
 						<button type="submit" class="btn btn-default" id="toCart"
 							onclick="cartlistM()">장바구니 담기</button>
 						<button type="button" class="btn btn-default"
