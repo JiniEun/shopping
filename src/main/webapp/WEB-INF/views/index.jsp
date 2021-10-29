@@ -19,7 +19,7 @@ img {
  
 <div class="container">
     <p><a href="./contents/mainlist/1" >SHOP NOW</a></p>
-    <img src="./images/jeans.jpg" alt="Jeans">
+    <img src="./images/Scenery.jpeg" alt="Scenery" style="max-width: 100%; height: auto;">
     
 </div>
 </body> 

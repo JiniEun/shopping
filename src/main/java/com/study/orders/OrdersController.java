@@ -44,22 +44,17 @@ public class OrdersController {
 
 		String[] contentsnoArray = request.getParameterValues("contentsno[]");
 		//for check contentsno post
-//		System.out.println("contentsno.length"+contentsnoArray.length);
 		for (int i = 0; i < contentsnoArray.length; i ++) {
 			System.out.println("contentsno"+contentsnoArray[i]);
-//			map.put("contentsno", contentsnoArray[i]);
 		}
 
-//		System.out.println(id);
 		List<OrdersDTO> list = service.orderCartlist(map);
 		
 		for(OrdersDTO d : list) {
 			System.out.println(d.toString());
 		}
 		
-//		System.out.println(list.get(0).getMname());
 		dto.setMname(list.get(0).getMname());
-//		System.out.println(dto.toString());
 		
 		// request에 Model사용 결과 담는다
 		request.setAttribute("list", list);
