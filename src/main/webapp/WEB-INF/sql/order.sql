@@ -132,3 +132,27 @@ WHERE contentsno = 15;
 
 DELETE FROM cart
 WHERE cartno = 2;
+
+
+SELECT member.id, member.mname, contents.pname, cart.CONTENTSNO 
+		FROM cart INNER JOIN member
+		ON member.id = cart.id INNER JOIN contents
+		ON contents.contentsno = cart.contentsno
+		WHERE member.id = 'user1';
+
+
+select contentsno, cateno, pname, price, filename, stock,  r
+from (
+    select contentsno, cateno, pname, price, filename, stock, rownum r
+    from(
+        select contentsno, cateno,pname, price, filename, stock
+        from contents
+         
+        where pname like '%Jean%'
+ 
+        and cateno = 1
+       
+        order by contentsno desc
+    )
+ 
+)where r >= 1 and r <= 5;

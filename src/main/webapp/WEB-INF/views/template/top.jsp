@@ -30,6 +30,13 @@
 #grade {
 	color: white;
 }
+
+.navbar{
+	background-color:#f8efda; 
+	border-color:#f8efda; 
+}
+
+
 </style>
 
 <script type="text/javascript">
@@ -62,13 +69,13 @@
 <body>
 	<!--상단메뉴-->
 	<div class="container-fluid">
-		<nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-inverse" style="color:black;">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="${root}/">Shop</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="${root}/">Home</a></li>
+<%-- 					<li class="active"><a href="${root}/" style="background-color:#f8efda;">Home</a></li> --%>
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">Product <span class="caret"></span></a>
 						<ul class="dropdown-menu" id="pmenu">
@@ -80,9 +87,9 @@
 							<li><a href="${root}/member/mypage">Mypage</a></li>
 							<li><a href="${root}/review/list">Review</a></li>
 							<li><a href="${root}/notice/list">Notice</a></li>
-							<li><a href="#">Q&A</a></li>
+							<li><a href="${root}/QnA/naver_chatting">Q&A</a></li>
 						</ul></li>
-					<li><a id="grade"><span class="glyphicon glyphicon-grain"></span>
+					<li><a id="grade" style="color:black;"><span class="glyphicon glyphicon-grain" style="color:black;"></span>
 							${str}</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

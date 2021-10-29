@@ -26,5 +26,15 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/jules/.gradle/caches/modules-2/files-2.1/org.springframework/spring-websocket/5.3.12/c61eda1bf65960e00c3dc5266a63d6786463f91c/spring-websocket-5.3.12.jar" sourcepath="/Users/jules/.gradle/caches/modules-2/files-2.1/org.springframework/spring-websocket/5.3.12/862cb77520e4c8e99c4408a826e6c7ce89d73f47/spring-websocket-5.3.12-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/jules/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/5.3.12/82cfd9bb58123e3aab52bc725a8d5fe5348e28ff/spring-messaging-5.3.12.jar" sourcepath="/Users/jules/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/5.3.12/657aab2dd64b3209ebfd7b85b82c6fa77b2e58d0/spring-messaging-5.3.12-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
