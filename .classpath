@@ -36,5 +36,11 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/jules/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis/3.5.7/f7974c644bcabae494512bddd105a1733316b376/mybatis-3.5.7.jar" sourcepath="/Users/jules/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis/3.5.7/1c08127ce423e06c2dd159ee80830f608cab074/mybatis-3.5.7-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>

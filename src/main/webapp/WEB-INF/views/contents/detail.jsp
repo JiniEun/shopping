@@ -97,7 +97,7 @@
 
 				<div class="panel-heading">상품 이미지</div>
 				<div class="panel-body">
-					<img src="/pstorage/${dto.filename}" class="img-rounded"
+					<img src="/contents/storage/${dto.filename}" class="img-rounded"
 						width="300px" height="300px">
 				</div>
 

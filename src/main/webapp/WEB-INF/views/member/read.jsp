@@ -30,7 +30,7 @@
  <table class="table table-bordered">
  <tr>
  	<td colspan="2" style="text-align: center">
- 		<img src="${root}/member/storage/${dto.fname}" 
+ 		<img src="/member/storage/${dto.fname}" 
  		width="250px" height="250px" class="img-rounded" >
  	</td>
  </tr>

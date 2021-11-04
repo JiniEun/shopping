@@ -56,7 +56,7 @@ ${admin}
 <table class="table table-bordered">
 <tr>
 	<td rowspan="5" class="col-sm-2">
-	<img src="${root}/member/storage/${dto.fname}"
+	<img src="/member/storage/${dto.fname}"
 	 class="img-rounded" width="200px" height="200px">
 	</td>
 	<th class="col-sm-2">아이디</th>

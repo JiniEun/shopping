@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.study.contents.Contents;
 import com.study.utility.Utility;
 
 @Controller
@@ -51,8 +52,10 @@ public class MemberController {
 	}
 
 	@PostMapping("/member/create")
-	public String create(MemberDTO dto) throws IOException {
-		String upDir = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
+	public String create(MemberDTO dto) {
+//		String upDir = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
+
+		String upDir = Member.getUploadDir();
 		String fname = Utility.saveFileSpring(dto.getFnameMF(), upDir);
 		int size = (int) dto.getFnameMF().getSize();
 		if (size > 0) {
@@ -229,13 +232,10 @@ public class MemberController {
 	}
 
 	@PostMapping("/member/updateFile")
-	public String updateFile(MultipartFile fnameMF, 
-			String oldfile, 
-			HttpSession session, 
-			HttpServletRequest request)
-			throws IOException {
-		String basePath = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
+	public String updateFile(MultipartFile fnameMF, String oldfile, HttpSession session, HttpServletRequest request) {
+//		String basePath = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
 
+		String basePath = Member.getUploadDir();
 		if (oldfile != null && !oldfile.equals("member.jpg")) { // 원본파일 삭제
 			Utility.deleteFile(basePath, oldfile);
 		}
@@ -254,86 +254,86 @@ public class MemberController {
 			return "./error";
 		}
 	}
-	
+
 	@GetMapping("/member/download")
-    public void download(HttpServletRequest request,
-                    HttpServletResponse response) throws IOException {
-            // 절대경로
-            String dir = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
-            String filename = request.getParameter("filename");
-            byte[] files = FileUtils.readFileToByteArray(new File(dir, filename));
-            response.setHeader("Content-disposition",
-                            "attachment; fileName=\"" + URLEncoder.encode(filename, "UTF-8") + "\";");
-            // Content-Transfer-Encoding : 전송 데이타의 body를 인코딩한 방법을 표시함.
-            response.setHeader("Content-Transfer-Encoding", "binary");
-            /**
-             * Content-Disposition가 attachment와 함게 설정되었다면 'Save As'로 파일을 제안하는지 여부에 따라 브라우저가
-             * 실행한다.
-             */
-            response.setContentType("application/octet-stream");
-            response.setContentLength(files.length);
-            response.getOutputStream().write(files);
-            response.getOutputStream().flush();
-            response.getOutputStream().close();
-    }
-	
+	public void download(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// 절대경로
+//		String dir = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
+		String dir = Member.getUploadDir();
+		String filename = request.getParameter("filename");
+		byte[] files = FileUtils.readFileToByteArray(new File(dir, filename));
+		response.setHeader("Content-disposition",
+				"attachment; fileName=\"" + URLEncoder.encode(filename, "UTF-8") + "\";");
+		// Content-Transfer-Encoding : 전송 데이타의 body를 인코딩한 방법을 표시함.
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		/**
+		 * Content-Disposition가 attachment와 함게 설정되었다면 'Save As'로 파일을 제안하는지 여부에 따라 브라우저가
+		 * 실행한다.
+		 */
+		response.setContentType("application/octet-stream");
+		response.setContentLength(files.length);
+		response.getOutputStream().write(files);
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
+	}
+
 	@RequestMapping("/admin/list")
 	public String list(HttpServletRequest request) {
 		// 검색관련------------------------
-        String col = Utility.checkNull(request.getParameter("col"));
-        String word = Utility.checkNull(request.getParameter("word"));
+		String col = Utility.checkNull(request.getParameter("col"));
+		String word = Utility.checkNull(request.getParameter("word"));
 
-        if (col.equals("total")) {
-                word = "";
-        }
+		if (col.equals("total")) {
+			word = "";
+		}
 
-        // 페이지관련-----------------------
-        int nowPage = 1;// 현재 보고있는 페이지
-        if (request.getParameter("nowPage") != null) {
-                nowPage = Integer.parseInt(request.getParameter("nowPage"));
-        }
-        int recordPerPage = 3;// 한페이지당 보여줄 레코드갯수
+		// 페이지관련-----------------------
+		int nowPage = 1;// 현재 보고있는 페이지
+		if (request.getParameter("nowPage") != null) {
+			nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		}
+		int recordPerPage = 3;// 한페이지당 보여줄 레코드갯수
 
-        // DB에서 가져올 순번-----------------
-        int sno = ((nowPage - 1) * recordPerPage) + 1;
-        int eno = nowPage * recordPerPage;
+		// DB에서 가져올 순번-----------------
+		int sno = ((nowPage - 1) * recordPerPage) + 1;
+		int eno = nowPage * recordPerPage;
 
-        Map map = new HashMap();
-        map.put("col", col);
-        map.put("word", word);
-        map.put("sno", sno);
-        map.put("eno", eno);
+		Map map = new HashMap();
+		map.put("col", col);
+		map.put("word", word);
+		map.put("sno", sno);
+		map.put("eno", eno);
 
-        int total = service.total(map);
+		int total = service.total(map);
 
-        List<MemberDTO> list = service.list(map);
+		List<MemberDTO> list = service.list(map);
 
-        String paging = Utility.paging(total, nowPage, recordPerPage, col, word);
+		String paging = Utility.paging(total, nowPage, recordPerPage, col, word);
 
-        // request에 Model사용 결과 담는다
-        request.setAttribute("list", list);
-        request.setAttribute("nowPage", nowPage);
-        request.setAttribute("col", col);
-        request.setAttribute("word", word);
-        request.setAttribute("paging", paging);
-        
-        return "/member/list";
+		// request에 Model사용 결과 담는다
+		request.setAttribute("list", list);
+		request.setAttribute("nowPage", nowPage);
+		request.setAttribute("col", col);
+		request.setAttribute("word", word);
+		request.setAttribute("paging", paging);
+
+		return "/member/list";
 	}
-	
+
 	@GetMapping("/member/mypage")
 	public String mypage(HttpSession session, Model model) {
-	   String id = (String)session.getAttribute("id");
-	 
-	  if(id==null) {
-	       return "redirect:/member/login/";
-	  }else {
-	  
-	       MemberDTO dto = service.mypage(id);
-	      
-	       model.addAttribute("dto", dto);
-	      
-	   return "/member/mypage";
-	  }
+		String id = (String) session.getAttribute("id");
+
+		if (id == null) {
+			return "redirect:/member/login/";
+		} else {
+
+			MemberDTO dto = service.mypage(id);
+
+			model.addAttribute("dto", dto);
+
+			return "/member/mypage";
+		}
 	}
 
 }
