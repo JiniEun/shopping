@@ -16,6 +16,8 @@ public class Contents {
         } else {
             // System.out.println("Linux");
             path = "/Users/jules/Study/AIstudy/deploy/shopping/contents/storage/";
+            //ubuntu
+//            path = "/home/ubuntu/deploy/shopping/contents/storage/";
         }
         
         return path;
