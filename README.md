@@ -4,20 +4,20 @@
 
 간단한 쇼핑몰 웹 사이트를 제작하여 Spring의 구조를 익히고 연습하기 위한 프로젝트입니다.
 
-<br><br>
+
 
 ## 프로젝트 주제
 
-쇼핑몰 기능을 가진 간단한 웹 페이지입니다.
-회원 기능, 장바구니, 상품을 주문하고 Q&A 챗봇을 통해 간단한 문의에 대한 답을 볼 수 있습니다..
+쇼핑몰 기능을 가진 간단한 웹 페이지입니다. <br>
+회원 기능, 장바구니, 상품을 주문하고 Q&A 챗봇을 통해 간단한 문의에 대한 답을 볼 수 있습니다.
 
-<br><br>
+
 
 ## 프로젝트 기간
 
 2021.10 ~ 2021.11
 
-<br><br>
+
 
 ## 개발 목표
 
@@ -42,9 +42,10 @@
 - 리뷰 페이지
 - 결제 페이지
 
-<br><br>
+<br>
 
 ## 개발 환경
+
 <br>
 
 - ![Java](https://img.shields.io/badge/-Java-007396?logo=java&logoColor=white&style=flat-square&logoHeight=50) / ![SpringBoot](https://img.shields.io/badge/-Springboot-6DB33F?logo=springboot&logoColor=white&style=flat-square&logoHeight=50)
